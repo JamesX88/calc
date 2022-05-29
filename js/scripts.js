@@ -28,3 +28,20 @@ function operate(operator, num, num2){
             break;
     }
 }
+
+function display(num){
+    let calcDisplay = document.querySelector('.calc-results');
+    return calcDisplay.innerHTML = num;
+}
+
+function load(){
+    let numberButtons = document.querySelectorAll('.calc-number');
+    numberButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            let calcDisplay = document.querySelector('.calc-results');
+            return calcDisplay.innerHTML += button.value;
+        })
+    })
+}
+
+load();
