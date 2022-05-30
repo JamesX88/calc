@@ -75,14 +75,33 @@ function load(){
     })
 
     let equalsButton = document.querySelector('.calc-equals');
-        equalsButton.addEventListener('click', () => {
-            if(firstNumber && secondNumber && operatorType){
-                let calcDisplay = document.querySelector('.calc-results');
-                let equation = operate(operatorType, firstNumber, secondNumber);
-                console.log(equation);
-                calcDisplay.textContent = equation;
-            }
-        })
+    equalsButton.addEventListener('click', () => {
+        if(firstNumber && secondNumber && operatorType){
+            let calcDisplay = document.querySelector('.calc-results');
+            let equation = operate(operatorType, firstNumber, secondNumber);
+            console.log(equation);
+            calcDisplay.textContent = equation;
+        }
+    })
+
+    let signButton = document.querySelector('.calc-sign');
+    signButton.addEventListener('click', () => {
+        let calcDisplay = document.querySelector('.calc-results');
+        let sign = Math.sign(calcDisplay.textContent);
+        if(sign){
+            console.log(calcDisplay.textContents);
+            calcDisplay.textContent *= -1;
+        }
+    })
+
+    let percentButton = document.querySelector('.calc-percent');
+    percentButton.addEventListener('click', () => {
+        let calcDisplay = document.querySelector('.calc-results');
+        if(calcDisplay.textContent > 0){
+            console.log(calcDisplay.textContents);
+            calcDisplay.textContent *= .01;
+        }
+    })
 
     let displayClear = document.querySelector('.calc-clear');
     displayClear.addEventListener('click', () => {
