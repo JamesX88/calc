@@ -29,19 +29,56 @@ function operate(operator, num, num2){
     }
 }
 
-function display(num){
+function clear(){
     let calcDisplay = document.querySelector('.calc-results');
-    return calcDisplay.innerHTML = num;
+    return calcDisplay.textContent = 0;
 }
 
 function load(){
+
+    let firstNumber;
+    let secondNumber;
+    let operatorType;
+
     let numberButtons = document.querySelectorAll('.calc-number');
     numberButtons.forEach((button) => {
         button.addEventListener('click', () => {
             let calcDisplay = document.querySelector('.calc-results');
-            return calcDisplay.innerHTML += button.value;
+            if (calcDisplay.textContent === '0') {
+                return calcDisplay.textContent = button.value;
+            } else if(!operatorType){
+                calcDisplay.textContent += button.value;
+            } else if(operatorType && !secondNumber){
+                calcDisplay.textContent = button.value;
+                secondNumber = calcDisplay.textContent;
+            }
         })
     })
-}
 
+    let operatorButtons = document.querySelectorAll('.calc-operator');
+    operatorButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            let calcDisplay = document.querySelector('.calc-results');
+            console.log(firstNumber)
+            console.log(secondNumber)
+            console.log(operatorType)
+            if(!operatorType){
+                operatorType = button.value;
+                firstNumber = calcDisplay.textContent;
+            }else if(firstNumber && secondNumber && operatorType){
+                let equation = operate(operatorType, firstNumber, secondNumber);
+                console.log(equation);
+                return calcDisplay.textContent = equation;
+            } else if(button.value === 'equals' && operatorType){
+                return operate(operatorType, firstNumber, secondNumber);
+            }
+        })
+    })
+
+    let displayClear = document.querySelector('.calc-clear');
+    displayClear.addEventListener('click', () => {
+        return clear();
+    })
+
+}
 load();
