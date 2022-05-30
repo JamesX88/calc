@@ -40,14 +40,15 @@ function load(){
         button.addEventListener('click', () => {
             let calcDisplay = document.querySelector('.calc-results');
             if (calcDisplay.textContent === '0') {
-                return calcDisplay.textContent = button.value;
+                calcDisplay.textContent = button.value;
             } else if(!operatorType){
                 calcDisplay.textContent += button.value;
             } else if(operatorType && !secondNumber){
                 calcDisplay.textContent = button.value;
                 secondNumber = calcDisplay.textContent;
             } else if(operatorType && secondNumber){
-                secondNumber += calcDisplay.textContent;
+                calcDisplay.textContent += button.value;
+                secondNumber = calcDisplay.textContent;
             }
         })
     })
@@ -67,10 +68,21 @@ function load(){
                 console.log(equation);
                 calcDisplay.textContent = equation;
                 firstNumber = equation;
+                operatorType = button.value;
                 secondNumber = null;
             }
         })
     })
+
+    let equalsButton = document.querySelector('.calc-equals');
+        equalsButton.addEventListener('click', () => {
+            if(firstNumber && secondNumber && operatorType){
+                let calcDisplay = document.querySelector('.calc-results');
+                let equation = operate(operatorType, firstNumber, secondNumber);
+                console.log(equation);
+                calcDisplay.textContent = equation;
+            }
+        })
 
     let displayClear = document.querySelector('.calc-clear');
     displayClear.addEventListener('click', () => {
