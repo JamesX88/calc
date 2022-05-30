@@ -29,11 +29,6 @@ function operate(operator, num, num2){
     }
 }
 
-function clear(){
-    let calcDisplay = document.querySelector('.calc-results');
-    return calcDisplay.textContent = 0;
-}
-
 function load(){
 
     let firstNumber;
@@ -51,6 +46,8 @@ function load(){
             } else if(operatorType && !secondNumber){
                 calcDisplay.textContent = button.value;
                 secondNumber = calcDisplay.textContent;
+            } else if(operatorType && secondNumber){
+                secondNumber += calcDisplay.textContent;
             }
         })
     })
@@ -68,16 +65,20 @@ function load(){
             }else if(firstNumber && secondNumber && operatorType){
                 let equation = operate(operatorType, firstNumber, secondNumber);
                 console.log(equation);
-                return calcDisplay.textContent = equation;
-            } else if(button.value === 'equals' && operatorType){
-                return operate(operatorType, firstNumber, secondNumber);
+                calcDisplay.textContent = equation;
+                firstNumber = equation;
+                secondNumber = null;
             }
         })
     })
 
     let displayClear = document.querySelector('.calc-clear');
     displayClear.addEventListener('click', () => {
-        return clear();
+        let calcDisplay = document.querySelector('.calc-results');
+        calcDisplay.textContent = 0;
+        firstNumber = null;
+        secondNumber = null;
+        operatorType = null;
     })
 
 }
